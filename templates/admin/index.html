@@ -1,0 +1,54 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+{{ block.super }}
+
+<div class="container">
+    <!-- 大版块 -->
+    <div class="main-block" id="main-block">
+        <!-- 初始小板块 -->
+        <div class="block">
+            <p><a class="button" href="{% url 'search' %}">ES 查询</a></p>
+        </div>
+
+        <div class="block">
+            <p><a class="upload-btn" href="{% url 'upload' %}">上传文件</a></p>
+        </div>
+        <div class="block">
+            <p><a class="upload-btn" href="{% url 'upload' %}">等待添加...</a></p>
+        </div>
+    </div>
+</div>
+
+<!-- 引入外部 CSS 文件 -->
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/admin.css' %}">
+
+<script>
+    // 动态添加小板块的函数
+    function addNewBlock() {
+        const title = document.getElementById('button-title').value;
+        const url = document.getElementById('button-url').value;
+
+        if (!title || !url) {
+            alert('请填写按钮标题和URL');
+            return;
+        }
+
+        const mainBlock = document.getElementById('main-block');
+        const newBlock = document.createElement('div');
+        newBlock.classList.add('block');
+        newBlock.innerHTML = `
+            <p><a class="button" href="${url}">${title}</a></p>
+        `;
+
+        // 将新的按钮添加到大版块的最前面
+        mainBlock.insertBefore(newBlock, mainBlock.children[mainBlock.children.length - 1]);
+
+        // 清空输入框
+        document.getElementById('button-title').value = '';
+        document.getElementById('button-url').value = '';
+    }
+</script>
+
+{% endblock %}

@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>题目查询</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<div class="container">
+    <h1>题目查询</h1>
+
+    <!-- ID 查询 -->
+    <div class="search-block">
+        <h2>ID 查询</h2>
+        <input type="text" id="id-input" placeholder="输入题目ID" />
+        <button id="search-id-btn">查询</button>
+    </div>
+
+    <!-- 内容查询 -->
+    <div class="search-block">
+        <h2>内容查询</h2>
+        <input type="text" id="content-input" placeholder="输入查询内容" />
+        <button id="search-content-btn">查询</button>
+    </div>
+
+    <h3>查询结果：</h3>
+    <div id="result"></div>
+</div>
+
+<script src="{% static 'js/search.js' %}"></script>
+</body>
+</html>

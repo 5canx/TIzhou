@@ -1,0 +1,153 @@
+/* 基础样式 */
+body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: #f4f7fc;
+    margin: 0;
+    padding: 20px;
+    color: #333;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 水平居中 */
+    justify-content: flex-start; /* 上对齐 */
+    max-width: 100%; /* 宽度自适应最大 */
+    margin: 40px auto;
+    padding: 25px 30px;
+    box-sizing: border-box;
+}
+
+/* 大版块样式 */
+.main-block {
+    display: flex;
+    flex-wrap: wrap; /* 换行 */
+    justify-content: flex-start; /* 左对齐 */
+    gap: 20px; /* 小板块之间的间距 */
+    width: 100%; /* 宽度自适应最大 */
+    padding: 10px 0;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* 每个小板块样式 */
+.block {
+    background-color: #2e86de; /* 设置按钮背景为蓝色 */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    color: white; /* 设置按钮文字为白色 */
+    cursor: pointer; /* 设置鼠标为点击模式 */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: calc(20% - 20px); /* 每行容纳 5 个小板块 */
+}
+
+/* 鼠标悬停时板块的效果 */
+.block:hover {
+    transform: translateY(-5px); /* 鼠标悬停时板块轻微上升 */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* 搜索块样式 */
+.search-block {
+    display: flex;
+    align-items: center; /* 垂直居中 */
+    justify-content: center; /* 水平居中 */
+    margin-bottom: 20px;
+    width: 100%; /* 宽度自适应 */
+    max-width: 600px; /* 最大宽度 600px */
+}
+
+/* 搜索标题样式 */
+.search-block h2 {
+    margin-right: 20px; /* 给标题和输入框之间添加空间 */
+}
+
+/* 搜索输入框样式 */
+.search-block input {
+    padding: 10px;
+    width: 100%; /* 输入框宽度自适应 */
+    max-width: 300px; /* 最大宽度为 300px */
+    font-size: 14px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+}
+
+/* 搜索按钮样式 */
+.search-block button {
+    padding: 12px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #2e86de;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-block button:hover {
+    background-color: #1b4f72;
+}
+
+/* 查询结果区域 */
+#result {
+    margin-top: 20px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* 结果项样式 */
+.result-item {
+    border-top: 1px solid #ddd;
+    padding: 12px 0;
+    text-align: left;
+}
+
+.result-item:first-child {
+    border-top: none;
+}
+
+.result-item ul {
+    padding-left: 20px;
+    margin: 5px 0;
+}
+
+.result-item li {
+    margin-bottom: 3px;
+}
+
+.answer-bold {
+    font-weight: 700;
+    color: #000;
+}
+
+/* 弹出表单样式 */
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-container input {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+.form-container button {
+    padding: 12px 20px;
+    font-size: 16px;
+    background-color: #2e86de;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.form-container button:hover {
+    background-color: #1b4f72;
+}

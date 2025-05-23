@@ -1,0 +1,152 @@
+/* 基础样式 */
+body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: #f4f7fc;
+    margin: 0;
+    padding: 20px;
+    color: #333;
+}
+
+.container {
+    max-width: 100%; /* 宽度自适应最大 */
+    margin: 40px auto;
+    padding: 25px 30px;
+    display: flex;
+    justify-content: center;
+}
+
+/* 大版块样式 */
+.main-block {
+    display: flex;
+    flex-wrap: wrap; /* 换行 */
+    justify-content: flex-start; /* 左对齐 */
+    gap: 20px; /* 小板块之间的间距 */
+    width: 100%; /* 宽度自适应最大 */
+    padding: 10px 0;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* 每个小板块样式（调整小板块大小和字体） */
+.block {
+    background-color: #2e86de; /* 设置按钮背景为蓝色 */
+    padding: 12px 25px; /* 设置适中的内边距 */
+    border-radius: 6px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    color: white; /* 设置按钮文字为白色 */
+    cursor: pointer; /* 设置鼠标为点击模式 */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: calc(16% - 20px); /* 每行容纳 6 个小板块 */
+    font-size: 16px; /* 增大字体 */
+    font-weight: bold; /* 加粗字体 */
+}
+
+/* 鼠标悬停时板块的效果 */
+.block:hover {
+    transform: translateY(-5px); /* 鼠标悬停时板块轻微上升 */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* 按钮样式 */
+.button, .upload-btn, .add-btn {
+    display: inline-block;
+    padding: 12px 20px;
+    font-size: 14px; /* 调整按钮字体大小 */
+    color: white; /* 按钮文字颜色 */
+    text-decoration: none;
+    background-color: #2e86de; /* 按钮背景色 */
+    border-radius: 6px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 10px rgba(46, 134, 222, 0.3);
+}
+
+/* 按钮鼠标悬停时效果 */
+.button:hover, .upload-btn:hover, .add-btn:hover {
+    background-color: #1b4f72;
+    transform: scale(1.05); /* 鼠标悬停时按钮放大 */
+}
+
+/* 按钮点击时效果 */
+.button:active, .upload-btn:active, .add-btn:active {
+    background-color: #1b4f72;
+    transform: scale(1); /* 点击时按钮缩回 */
+}
+
+/* 上传按钮特殊样式 */
+.upload-btn {
+    background-color: #2e86de; /* 统一蓝色背景 */
+}
+
+.upload-btn:hover {
+    background-color: #1b4f72; /* 悬停时深蓝 */
+}
+
+/* 结果展示区域 */
+#result {
+    margin-top: 20px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.result-item {
+    border-top: 1px solid #ddd;
+    padding: 12px 0;
+    text-align: left;
+}
+
+.result-item:first-child {
+    border-top: none;
+}
+
+.result-item ul {
+    padding-left: 20px;
+    margin: 5px 0;
+}
+
+.result-item li {
+    margin-bottom: 3px;
+}
+
+.answer-bold {
+    font-weight: 700;
+    color: #000;
+}
+
+/* 表单样式直接嵌入在大版块 */
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.form-container input {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+.form-container button {
+    padding: 12px 20px;
+    font-size: 16px;
+    background-color: #2e86de;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.form-container button:hover {
+    background-color: #1b4f72;
+}
+
+/* 修改 .accent-primary 下的所有链接和按钮颜色为白色 */
+.accent-primary .btn-link,
+.accent-primary .nav-tabs .nav-link,
+.accent-primary a:not(.dropdown-item):not(.btn-app):not(.nav-link):not(.brand-link):not(.page-link):not(.btn) {
+    color: white !important;
+}

@@ -1,0 +1,19 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <title>上传题库</title>
+    <link rel="stylesheet" href="{% static 'css/upload.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>上传题库文件</h1>
+        <input type="file" id="fileInput" accept=".json,.xlsx" multiple />
+        <button id="upload-btn">上传</button>
+        <pre id="uploadResult"></pre>
+    </div>
+    <script src="{% static 'js/upload.js' %}"></script>
+</body>
+</html>

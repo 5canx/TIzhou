@@ -1,0 +1,9 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <div style="text-align: center; padding: 50px; background-color: #f4f7fc;">
+        <h1 style="font-size: 50px; color: #2e86de;">404 - 页面未找到</h1>
+        <p style="font-size: 18px; color: #333;">抱歉，您访问的页面不存在。</p>
+        <p>请检查网址是否正确，或者返回 <a href="{% url 'home' %}" style="color: #2e86de;">首页</a></p>
+    </div>
+{% endblock %}

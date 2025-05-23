@@ -1,0 +1,16 @@
+<!-- templates/admin_es_questions.html -->
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+<h1>题目列表（Elasticsearch）</h1>
+<table border="1">
+  <tr><th>ID</th><th>题干</th><th>答案</th></tr>
+  {% for q in questions %}
+    <tr>
+      <td>{{ q.question_id }}</td>
+      <td>{{ q.content }}</td>
+      <td>{{ q.answer }}</td>
+    </tr>
+  {% endfor %}
+</table>
+{% endblock %}
