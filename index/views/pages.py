@@ -5,3 +5,6 @@ def upload(request):
 
 def search(request):
     return render(request, 'search.html')
+
+def custom_404_view(request, exception):
+    return render(request, '404.html', status=404)
