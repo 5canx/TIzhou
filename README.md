@@ -1,4 +1,4 @@
-# Django Elasticsearch Redis 集成项目
+# 基于Django开发的题库系统
 
 ## 项目概述
 
@@ -47,7 +47,7 @@ cd question_bank
 ```sh
 python -m venv venv
 source venv/bin/activate  # Linux/Mac
-venv\Scripts\activate     # Windows
+# venv\Scripts\activate     # Windows
 pip install -r requirements.txt
 python manage.py collectstatic  #收集静态文件
 python manage.py runserver
