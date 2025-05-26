@@ -5,7 +5,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-@otcs3@c^e8-me906gybmq9ks2*f5k(z!6_is707w-15xpgn@v'
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -98,22 +98,30 @@ STATICFILES_DIRS = [
 
 # 这里是你存放静态文件的路径
 
-# 媒体文件配置
-MEDIA_URL = '/media/'  # 媒体文件的 URL 路径
-MEDIA_ROOT = BASE_DIR / 'media'  # 媒体文件的存储路径
+# # 媒体文件配置
+# MEDIA_URL = '/media/'  # 媒体文件的 URL 路径
+# MEDIA_ROOT = BASE_DIR / 'media'  # 媒体文件的存储路径
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REDIS_CONFIG = {
-    "host": "127.0.0.1",
-    "port": 6379,
-    "db": 0,
-    "password": None,
+    'HOST': 'localhost',
+    'PORT': 6379,
+    'DB': 3,
+    'PASSWORD': '123456',  # 注意密码改为字符串类型
+    'DECODE_RESPONSES': True,
+    'SOCKET_TIMEOUT': 5
+}
+ES_CONFIG = {
+    'HOST': 'http://localhost:9200',
+    'INDEX_NAME': 'questions',
+    'TIMEOUT': 30
 }
 
-RENAME_MAP = {
+FIELD_MAPPINGS = {
     "题目编号": "question_id",
     "题目内容": "content",
+    "题目": "content",
     "问题": "content",
     "题型": "question_type",
     "难度": "difficulty",
@@ -121,4 +129,8 @@ RENAME_MAP = {
     "选项": "options"
 }
 
-ALLOWED_FIELDS = set(RENAME_MAP.values())
+ALLOWED_FIELDS = list(FIELD_MAPPINGS.values()) + [
+    'explanation',
+    'source',
+    'ingest_time'
+]
