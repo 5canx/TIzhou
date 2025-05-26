@@ -55,7 +55,7 @@ python manage.py runserver
 
 访问:
 
-```http
+```bash
 http://127.0.0.1:8000/
 ```
 
@@ -83,11 +83,11 @@ djangoProject/
 
 ## **上传题库**
 
-![May-26-2025 09-52-30](https://fastly.jsdelivr.net/gh/hack-scan/Blog-pic/posts/202505260952932.gif)
+<img src="https://fastly.jsdelivr.net/gh/hack-scan/Blog-pic/posts/202505260952932.gif" alt="May-26-2025 09-52-30" style="zoom:67%;" />
 
 ## 题目查询
 
-![May-26-2025 10-42-41](https://fastly.jsdelivr.net/gh/hack-scan/Blog-pic/posts/202505261042851.gif)
+<img src="https://fastly.jsdelivr.net/gh/hack-scan/Blog-pic/posts/202505261042851.gif" alt="May-26-2025 10-42-41" style="zoom: 67%;" />
 
 
 
