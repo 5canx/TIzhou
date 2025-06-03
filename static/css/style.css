@@ -17,6 +17,11 @@ body {
     padding: 25px 30px;
     box-sizing: border-box;
 }
+.option-image {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-top: 4px;
+}
 
 /* 大版块样式 */
 .main-block {

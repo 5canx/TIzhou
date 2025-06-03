@@ -1,10 +1,22 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8" />
     <title>题目查询</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        /* 简单样式，方便演示 */
+        .answer-bold {
+            font-weight: bold;
+            color: #007BFF;
+        }
+        img.option-image {
+            max-height: 65px;
+            vertical-align: middle;
+            margin-left: 6px;
+        }
+    </style>
 </head>
 <body>
 <div class="container">

@@ -1,0 +1,18 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <title>上传图片压缩包</title>
+    <link rel="stylesheet" href="{% static 'css/upload.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>上传图片压缩包</h1>
+        <input type="file" id="zipInput" accept=".zip" />
+        <button id="upload-zip-btn">上传</button>
+        <pre id="uploadZipResult"></pre>
+    </div>
+    <script src="{% static 'js/upload_images.js' %}"></script>
+</body>
+</html>

@@ -66,7 +66,7 @@ python -m venv venv
 source venv/bin/activate  # Linux/Mac
 # venv\Scripts\activate     # Windows
 pip install -r requirements.txt
-python manage.py collectstatic  #收集静态文件
+python dt.py  #设置索引
 python manage.py runserver
 ```
 
@@ -102,9 +102,19 @@ djangoProject/
 
 <img src="https://fastly.jsdelivr.net/gh/hack-scan/Blog-pic/posts/202505260952932.gif" alt="May-26-2025 09-52-30" style="zoom:67%;" />
 
+## XLSX文件题目图片上传（压缩包）
+
+![Jun-03-2025 18-37-51](https://fastly.jsdelivr.net/gh/hack-scan/Blog-pic/posts/202506031838104.gif)
+
+
+
 ## 题目查询
 
 <img src="https://fastly.jsdelivr.net/gh/hack-scan/Blog-pic/posts/202505261042851.gif" alt="May-26-2025 10-42-41" style="zoom: 67%;" />
+
+<img src="https://fastly.jsdelivr.net/gh/hack-scan/Blog-pic/posts/202506031849890.gif" alt="Jun-03-2025 18-49-00" style="zoom:67%;" />
+
+## 
 
 
 

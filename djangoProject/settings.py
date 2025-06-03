@@ -1,14 +1,13 @@
 from pathlib import Path
 import os
-BASE_DIR = Path(__file__).resolve().parent.parent
 
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-@otcs3@c^e8-me906gybmq9ks2*f5k(z!6_is707w-15xpgn@v'
 
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-
 
 INSTALLED_APPS = [
     "jazzmin",
@@ -40,7 +39,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [BASE_DIR / 'templates'],
-        'APP_DIRS': True,   # 恢复默认启用 app 内模板加载
+        'APP_DIRS': True,  # 恢复默认启用 app 内模板加载
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -51,7 +50,6 @@ TEMPLATES = [
         },
     },
 ]
-
 
 WSGI_APPLICATION = 'djangoProject.wsgi.application'
 
@@ -88,13 +86,10 @@ USE_I18N = True
 
 USE_TZ = True
 
-
-
 STATIC_URL = '/staticfiles/'  # 对外访问的 URL 路径
 STATICFILES_DIRS = [
-    BASE_DIR / 'static',  # 这里是开发环境中额外的静态文件目录，包含你自己项目的静态文件
+    BASE_DIR / 'staticfiles',  # 这里是开发环境中额外的静态文件目录，包含你自己项目的静态文件
 ]
-
 
 # 这里是你存放静态文件的路径
 
@@ -117,18 +112,13 @@ ES_CONFIG = {
     'INDEX_NAME': 'questions',
     'TIMEOUT': 30
 }
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-FIELD_MAPPINGS = {
-    "题目编号": "question_id",
-    "题目内容": "content",
-    "题目": "content",
-    "问题": "content",
-    "题型": "question_type",
-    "难度": "difficulty",
-    "答案": "answer",
-    "选项": "options"
-}
-
+FIELD_MAPPINGS = {'题目编号': 'question_id', '题目': 'content', '题目内容': 'content', '题型': 'question_type',
+                  '难度': 'difficulty', '答案': 'answer', '选项A': 'options.0.text', '选项A图片': 'options.0.image',
+                  '选项B': 'options.1.text', '选项B图片': 'options.1.image', '选项C': 'options.2.text',
+                  '选项C图片': 'options.2.image','选项D': 'options.3.text','选项D图片': 'options.3.image' }
 ALLOWED_FIELDS = list(FIELD_MAPPINGS.values()) + [
     'explanation',
     'source',

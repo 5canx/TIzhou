@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const formData = new FormData();
         for (let i = 0; i < files.length; i++) {
-            formData.append("files", files[i]);  // 👈 多文件字段名统一为“files”
+            formData.append("   files", files[i]);  // 👈 多文件字段名统一为“files”
         }
 
         resultBox.textContent = "上传中，请稍候...";

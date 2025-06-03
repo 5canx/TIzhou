@@ -8,3 +8,5 @@ def search(request):
 
 def custom_404_view(request, exception):
     return render(request, '404.html', status=404)
+def upload_images_page(request):
+    return render(request, "upload_images.html")

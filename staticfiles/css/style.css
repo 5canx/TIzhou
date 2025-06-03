@@ -6,6 +6,10 @@ body {
     padding: 20px;
     color: #333;
 }
+.option {
+    margin: 4px 0;
+    line-height: 1.6;
+}
 
 .container {
     display: flex;
@@ -94,7 +98,7 @@ body {
 
 /* 查询结果区域 */
 #result {
-    margin-top: 20px;
+    margin-top: 10px;
     font-size: 14px;
     line-height: 1.5;
 }
