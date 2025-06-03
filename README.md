@@ -1,4 +1,4 @@
-# 基于Django开发的题库系统 1.0
+# 基于Django开发的题库系统 1.2
 
 ## 项目概述
 
@@ -113,8 +113,6 @@ djangoProject/
 <img src="https://fastly.jsdelivr.net/gh/hack-scan/Blog-pic/posts/202505261042851.gif" alt="May-26-2025 10-42-41" style="zoom: 67%;" />
 
 <img src="https://fastly.jsdelivr.net/gh/hack-scan/Blog-pic/posts/202506031849890.gif" alt="Jun-03-2025 18-49-00" style="zoom:67%;" />
-
-## 
 
 
 
