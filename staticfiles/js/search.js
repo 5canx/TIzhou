@@ -56,7 +56,7 @@ function renderResult(data) {
         } else if (q.answer !== undefined && q.answer !== null) {
             answers = [String(q.answer).toUpperCase()];
         }
-        const answerStr = answers.join('');  //答案以“、”分隔
+        const answerStr = answers.join('、');  //答案以“、”分隔
 
 
         return `

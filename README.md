@@ -50,6 +50,10 @@
 - Elasticsearch 8.x
 - Node.js (可选，前端开发)
 
+### 示例数据
+
+ 
+
 ### 安装步骤
 
 克隆仓库：
@@ -73,7 +77,9 @@ python manage.py runserver
 访问:
 
 ```bash
-http://127.0.0.1:8000/
+http://127.0.0.1:8000/upload/
+http://127.0.0.1:8000/upload/images/page/
+http://127.0.0.1:8000/search/
 ```
 
 目录结构：
@@ -113,6 +119,4 @@ djangoProject/
 <img src="https://fastly.jsdelivr.net/gh/hack-scan/Blog-pic/posts/202505261042851.gif" alt="May-26-2025 10-42-41" style="zoom: 67%;" />
 
 <img src="https://fastly.jsdelivr.net/gh/hack-scan/Blog-pic/posts/202506031849890.gif" alt="Jun-03-2025 18-49-00" style="zoom:67%;" />
-
-
 
