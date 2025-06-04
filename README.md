@@ -52,7 +52,9 @@
 
 ### 示例数据
 
- 
+https://github.com/hack-scan/TIzhou/blob/main/%E9%A2%98%E7%9B%AE%E4%B8%8E%E7%AD%94%E6%A1%88.xlsx
+
+https://github.com/hack-scan/TIzhou/blob/main/%E5%9B%BE%E7%89%87.zip
 
 ### 安装步骤
 
