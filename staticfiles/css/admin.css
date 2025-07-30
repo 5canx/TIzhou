@@ -150,3 +150,53 @@ body {
 .accent-primary a:not(.dropdown-item):not(.btn-app):not(.nav-link):not(.brand-link):not(.page-link):not(.btn) {
     color: white !important;
 }
+/* static/css/admin.css */
+.card {
+    border: 1px solid #e3e6f0;
+    border-radius: 0.35rem;
+}
+.card-header {
+    background-color: #f8f9fc;
+    border-bottom: 1px solid #e3e6f0;
+}
+.card-body {
+    padding: 1.25rem;
+}
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+.table th, .table td {
+    padding: 0.75rem;
+    vertical-align: middle;
+}
+.badge {
+    padding: 0.25em 0.4em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.35rem;
+}
+.badge-warning {
+    background-color: #f6c23e;
+    color: #fff;
+}
+.badge-success {
+    background-color: #36b9cc;
+    color: #fff;
+}
+.badge-danger {
+    background-color: #e74a3b;
+    color: #fff;
+}
+.badge-secondary {
+    background-color: #858796;
+    color: #fff;
+}
+.btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+}

@@ -1,0 +1,107 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+{{ block.super }}
+
+<div class="container">
+    <!-- 大版块 -->
+    <div class="main-block" id="main-block">
+        <!-- 初始小板块 -->
+        <div class="block">
+            <p><a class="button" href="{% url 'admin:core_questionsubmission_changelist' %}">题目管理</a></p>
+        </div>
+
+        <div class="block">
+            <p><a class="upload-btn" href="{% url 'admin:core_user_changelist' %}">用户管理</a></p>
+        </div>
+        <div class="block">
+            <p><a class="upload-btn" href="{% url 'admin:core_systemlog_changelist' %}">系统日志</a></p>
+        </div>
+    </div>
+
+    <!-- 全部题目表格 -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">全部题目</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover" id="questionTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>标题</th>
+                            <th>提交者</th>
+                            <th>状态</th>
+                            <th>创建时间</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for question in questions %}
+                        <tr>
+                            <td>{{ question.id }}</td>
+                            <td>{{ question.title }}</td>
+                            <td>{{ question.submitter.username }}</td>
+                            <td>
+                                {% if question.status == 'pending' %}
+                                    <span class="badge badge-warning">待审核</span>
+                                {% elif question.status == 'approved' %}
+                                    <span class="badge badge-success">已通过</span>
+                                {% elif question.status == 'rejected' %}
+                                    <span class="badge badge-danger">已拒绝</span>
+                                {% else %}
+                                    <span class="badge badge-secondary">{{ question.status }}</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ question.created_at|date:"Y-m-d H:i" }}</td>
+                            <td>
+                                <a href="{% url 'admin:core_questionsubmission_change' question.id %}" class="btn btn-sm btn-primary">
+                                    <i class="fas fa-edit"></i> 编辑
+                                </a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="6" class="text-center">暂无题目</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 引入外部 CSS 文件 -->
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/admin.css' %}">
+
+<script>
+    // 动态添加小板块的函数
+    function addNewBlock() {
+        const title = document.getElementById('button-title').value;
+        const url = document.getElementById('button-url').value;
+
+        if (!title || !url) {
+            alert('请填写按钮标题和URL');
+            return;
+        }
+
+        const mainBlock = document.getElementById('main-block');
+        const newBlock = document.createElement('div');
+        newBlock.classList.add('block');
+        newBlock.innerHTML = `
+            <p><a class="button" href="${url}">${title}</a></p>
+        `;
+
+        // 将新的按钮添加到大版块的最前面
+        mainBlock.insertBefore(newBlock, mainBlock.children[mainBlock.children.length - 1]);
+
+        // 清空输入框
+        document.getElementById('button-title').value = '';
+        document.getElementById('button-url').value = '';
+    }
+</script>
+
+{% endblock %}

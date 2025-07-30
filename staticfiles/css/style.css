@@ -6,10 +6,6 @@ body {
     padding: 20px;
     color: #333;
 }
-.option {
-    margin: 4px 0;
-    line-height: 1.6;
-}
 
 .container {
     display: flex;
@@ -20,6 +16,11 @@ body {
     margin: 40px auto;
     padding: 25px 30px;
     box-sizing: border-box;
+}
+.option-image {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-top: 4px;
 }
 
 /* 大版块样式 */
@@ -98,7 +99,7 @@ body {
 
 /* 查询结果区域 */
 #result {
-    margin-top: 10px;
+    margin-top: 20px;
     font-size: 14px;
     line-height: 1.5;
 }

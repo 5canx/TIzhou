@@ -1,0 +1,1 @@
+from .pages import search_page, custom_404_view 

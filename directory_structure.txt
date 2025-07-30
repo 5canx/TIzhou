@@ -1,0 +1,70 @@
+.
+├── .git
+│   ├── hooks
+│   ├── info
+│   ├── logs
+│   │   └── refs
+│   ├── objects
+│   │   ├── info
+│   │   └── pack
+│   └── refs
+│       ├── heads
+│       ├── remotes
+│       └── tags
+├── .idea
+│   └── inspectionProfiles
+├── apps
+│   ├── __pycache__
+│   ├── core
+│   │   ├── __pycache__
+│   │   ├── management
+│   │   └── migrations
+│   ├── moderator
+│   │   └── __pycache__
+│   ├── questions
+│   │   ├── __pycache__
+│   │   └── views
+│   ├── search
+│   │   ├── __pycache__
+│   │   └── views
+│   ├── upload
+│   │   ├── __pycache__
+│   │   └── views
+│   └── users
+│       └── __pycache__
+├── djangoProject
+│   ├── __pycache__
+│   └── settings
+│       └── __pycache__
+├── docs
+├── logs
+├── media
+├── static
+│   ├── css
+│   ├── images
+│   └── js
+├── staticfiles
+│   ├── admin
+│   │   ├── css
+│   │   ├── img
+│   │   └── js
+│   ├── colorfield
+│   │   └── coloris
+│   ├── css
+│   └── js
+├── templates
+│   ├── admin
+│   ├── questions
+│   ├── upload
+│   └── users
+├── utils
+│   └── __pycache__
+└── venv
+    ├── bin
+    ├── include
+    │   └── python3.12
+    └── lib
+        ├── python3.12
+        └── python3.9
+
+68 directories

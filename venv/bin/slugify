@@ -1,4 +1,4 @@
-#!/Users/scan/PycharmProjects/djangoProject/venv/bin/python3.9
+#!/Users/scan/PycharmProjects/djangoProject/TIzhou/venv/bin/python3.12
 # -*- coding: utf-8 -*-
 import re
 import sys
