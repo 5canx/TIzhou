@@ -1,4 +1,3 @@
-# djangoProject/urls.py
 from django.urls import path, include
 from django.shortcuts import redirect
 from django.conf import settings

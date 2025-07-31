@@ -2,11 +2,10 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8">
     <title>题目查询</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <style>
-        /* 简单样式，方便演示 */
         .answer-bold {
             font-weight: bold;
             color: #007BFF;
@@ -16,23 +15,48 @@
             vertical-align: middle;
             margin-left: 6px;
         }
+        .search-block {
+            margin-bottom: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        button {
+            padding: 8px 16px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        input {
+            padding: 8px;
+            width: 200px;
+            margin-right: 10px;
+        }
     </style>
 </head>
 <body>
 <div class="container">
+    {% csrf_token %}
     <h1>题目查询</h1>
 
     <!-- ID 查询 -->
     <div class="search-block">
         <h2>ID 查询</h2>
-        <input type="text" id="id-input" placeholder="输入题目ID" />
+        <input type="text" id="id-input" placeholder="输入题目ID">
         <button id="search-id-btn">查询</button>
     </div>
 
     <!-- 内容查询 -->
     <div class="search-block">
         <h2>内容查询</h2>
-        <input type="text" id="content-input" placeholder="输入查询内容" />
+        <input type="text" id="content-input" placeholder="输入查询内容">
         <button id="search-content-btn">查询</button>
     </div>
 

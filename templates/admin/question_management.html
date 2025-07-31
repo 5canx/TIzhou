@@ -1,0 +1,35 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block title %}题目管理{% endblock %}
+
+{% block extrahead %}
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{% endblock %}
+
+{% block content %}
+<h1>题目管理</h1>
+
+<div id="question-table">
+  {% include "admin/_question_table.html" %}
+</div>
+
+<script>
+  // 分页按钮点击处理
+  $(document).on('click', '.pagination a', function (e) {
+    e.preventDefault();
+    const url = $(this).attr('href');
+
+    $.ajax({
+      url: url,
+      type: 'GET',
+      success: function (data) {
+        $('#question-table').html(data);
+      },
+      error: function () {
+        alert("加载失败，请重试！");
+      }
+    });
+  });
+</script>
+{% endblock %}

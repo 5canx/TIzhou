@@ -1,16 +1,57 @@
-<!-- templates/admin_es_questions.html -->
 {% extends "admin/base_site.html" %}
+{% load static %}
 
 {% block content %}
-<h1>题目列表（Elasticsearch）</h1>
-<table border="1">
-  <tr><th>ID</th><th>题干</th><th>答案</th></tr>
-  {% for q in questions %}
-    <tr>
-      <td>{{ q.question_id }}</td>
-      <td>{{ q.content }}</td>
-      <td>{{ q.answer }}</td>
-    </tr>
-  {% endfor %}
-</table>
+<h1>ES题目管理</h1>
+
+{% if error %}
+    <div style="color: red;">错误: {{ error }}</div>
+{% else %}
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>题目ID</th>
+                <th>内容</th>
+                <th>题型</th>
+                <th>难度</th>
+                <th>答案</th>
+                <th>解析</th>
+                <th>来源</th>
+                <th>选项</th>
+                <th>录入时间</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for q in questions %}
+            <tr>
+                <td>{{ q.question_id }}</td>
+                <td>{{ q.content }}</td>
+                <td>{{ q.question_type }}</td>
+                <td>{{ q.difficulty }}</td>
+                <td>{{ q.answer }}</td>
+                <td>{{ q.explanation }}</td>
+                <td>{{ q.source }}</td>
+                <td>
+                    {% if q.options %}
+                        <ul>
+                        {% for opt in q.options %}
+                            <li>
+                                {% if opt.is_image %}
+                                    <img src="{{ opt.image }}" alt="图片选项" style="max-height: 50px;">
+                                {% else %}
+                                    {{ opt.text }}
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                        </ul>
+                    {% else %}
+                        无选项
+                    {% endif %}
+                </td>
+                <td>{{ q.ingest_time }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
 {% endblock %}

@@ -1,105 +1,66 @@
 {% extends "admin/base_site.html" %}
 
+{% load static %}
+
 {% block content %}
-{{ block.super }}
+<h1>题库管理系统 - 管理首页</h1>
 
-<div class="container">
-    <!-- 管理模块导航 -->
-    <div class="row mb-4">
-        <div class="col-md-4">
-            <div class="card shadow">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">题目管理</h6>
-                </div>
-                <div class="card-body">
-                    <p><a class="btn btn-primary btn-block" href="{% url 'admin:core_questionsubmission_changelist' %}">进入题目管理</a></p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card shadow">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">用户管理</h6>
-                </div>
-                <div class="card-body">
-                    <p><a class="btn btn-primary btn-block" href="{% url 'admin:core_user_changelist' %}">进入用户管理</a></p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card shadow">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">系统日志</h6>
-                </div>
-                <div class="card-body">
-                    <p><a class="btn btn-primary btn-block" href="{% url 'admin:core_systemlog_changelist' %}">进入系统日志</a></p>
-                </div>
-            </div>
-        </div>
+{% if error %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
     </div>
+{% endif %}
 
-    <!-- 全部题目表格 -->
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">全部题目</h6>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered table-hover" id="questionTable">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>标题</th>
-                            <th>提交者</th>
-                            <th>题型</th>
-                            <th>难度</th>
-                            <th>状态</th>
-                            <th>审核员</th>
-                            <th>创建时间</th>
-                            <th>操作</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for question in questions %}
-                        <tr>
-                            <td>{{ question.id }}</td>
-                            <td>{{ question.title }}</td>
-                            <td>{{ question.submitter.username }}</td>
-                            <td>{{ question.question_type }}</td>
-                            <td>{{ question.difficulty }}</td>
-                            <td>
-                                {% if question.status == 'pending' %}
-                                    <span class="badge badge-warning">待审核</span>
-                                {% elif question.status == 'approved' %}
-                                    <span class="badge badge-success">已通过</span>
-                                {% elif question.status == 'rejected' %}
-                                    <span class="badge badge-danger">已拒绝</span>
-                                {% else %}
-                                    <span class="badge badge-secondary">{{ question.status }}</span>
-                                {% endif %}
-                            </td>
-                            <td>{{ question.reviewer.username|default:"无" }}</td>
-                            <td>{{ question.created_at|date:"Y-m-d H:i" }}</td>
-                            <td>
-                                <a href="{% url 'admin:core_questionsubmission_change' question.id %}" class="btn btn-sm btn-primary">
-                                    <i class="fas fa-edit"></i> 编辑
-                                </a>
-                            </td>
-                        </tr>
-                        {% empty %}
-                        <tr>
-                            <td colspan="9" class="text-center">暂无题目</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">全部题目（来自ES）</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" id="questionTable">
+                <thead>
+                    <tr>
+                        <th>题目ID</th>
+                        <th>标题</th>
+                        <th>提交者</th>
+                        <th>题型</th>
+                        <th>难度</th>
+                        <th>状态</th>
+                        <th>审核员</th>
+                        <th>创建时间</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for question in questions %}
+                    <tr>
+                        <td>{{ question.question_id|default:"无" }}</td>
+                        <td>{{ question.title|default:"无" }}</td>
+                        <td>{{ question.submitter|default:"无" }}</td>
+                        <td>{{ question.question_type|default:"无" }}</td>
+                        <td>{{ question.difficulty|default:"无" }}</td>
+                        <td>
+                            {% if question.status == 'pending' %}
+                                <span class="badge badge-warning">待审核</span>
+                            {% elif question.status == 'approved' %}
+                                <span class="badge badge-success">已通过</span>
+                            {% elif question.status == 'rejected' %}
+                                <span class="badge badge-danger">已拒绝</span>
+                            {% else %}
+                                <span class="badge badge-secondary">{{ question.status }}</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ question.reviewer|default:"无" }}</td>
+                        <td>{{ question.created_at|default:"无" }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="9" class="text-center">暂无题目</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
-
-<!-- 引入外部 CSS 文件 -->
-{% load static %}
-<link rel="stylesheet" href="{% static 'css/admin.css' %}">
 
 {% endblock %}

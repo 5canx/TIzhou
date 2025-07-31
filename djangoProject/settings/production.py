@@ -14,10 +14,6 @@ SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 X_FRAME_OPTIONS = 'DENY'
 
-# 生产环境日志级别
-LOGGING['root']['level'] = 'WARNING'
-LOGGING['loggers']['django']['level'] = 'WARNING'
-
 # 生产环境静态文件配置
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = []

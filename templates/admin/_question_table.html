@@ -1,0 +1,66 @@
+{% if error %}
+  <div style="color: red; margin-bottom: 20px;">错误: {{ error }}</div>
+{% endif %}
+
+{% if questions %}
+  <table border="1" cellspacing="0" cellpadding="5" style="width: 100%; border-collapse: collapse;">
+    <thead>
+      <tr>
+        <th>题目ID</th>
+        <th>内容</th>
+        <th>类型</th>
+        <th>难度</th>
+        <th>答案</th>
+        <th>解析</th>
+        <th>来源</th>
+        <th>创建时间</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for q in questions %}
+        <tr>
+          <td>{{ q.question_id }}</td>
+          <td style="max-width: 400px; word-wrap: break-word;">{{ q.content }}</td>
+          <td>{{ q.question_type }}</td>
+          <td>{{ q.difficulty|default:"未知" }}</td>
+          <td>{{ q.answer }}</td>
+          <td style="max-width: 300px; word-wrap: break-word;">{{ q.explanation|default:"无" }}</td>
+          <td>{{ q.source|default:"无" }}</td>
+          <td>{{ q.ingest_time }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <div class="pagination" style="margin-top: 20px;">
+    <span>第 {{ page_obj.number }} 页 / 共 {{ paginator.num_pages }} 页 (共 {{ total }} 条数据)</span><br><br>
+
+    {% if page_obj.has_previous %}
+      <a href="?page=1">首页</a>
+      <a href="?page={{ page_obj.previous_page_number }}">上一页</a>
+    {% else %}
+      首页
+      上一页
+    {% endif %}
+
+    {% for num in paginator.page_range %}
+      {% if num >= page_obj.number|add:'-3' and num <= page_obj.number|add:'3' %}
+        {% if num == page_obj.number %}
+          <strong style="margin: 0 5px;">{{ num }}</strong>
+        {% else %}
+          <a href="?page={{ num }}" style="margin: 0 5px;">{{ num }}</a>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}">下一页</a>
+      <a href="?page={{ paginator.num_pages }}">尾页</a>
+    {% else %}
+      下一页
+      尾页
+    {% endif %}
+  </div>
+{% else %}
+  <p>暂无题目数据。</p>
+{% endif %}

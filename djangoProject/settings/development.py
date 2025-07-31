@@ -9,10 +9,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-# 开发环境日志级别
-LOGGING['root']['level'] = 'DEBUG'
-LOGGING['loggers']['django']['level'] = 'DEBUG'
-
 # 开发环境缓存配置
 CACHES = {
     'default': {

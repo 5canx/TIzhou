@@ -1,9 +1,7 @@
-"""
-数据库连接工具模块
-"""
 import logging
-import redis
+from datetime import datetime
 from elasticsearch import Elasticsearch
+import redis
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 
@@ -63,7 +61,6 @@ class QuestionIDGenerator:
 
     def generate(self):
         """生成唯一ID"""
-        from datetime import datetime
         try:
             date_key = datetime.now().strftime("qid:%Y%m%d")
             num = self.redis.incr(date_key)
@@ -85,9 +82,12 @@ try:
 
     # 导出常用变量
     es = es_client
-    redis = redis_client
+    client = redis_client
     index_name = settings.ES_CONFIG['INDEX_NAME']
+    rename_map = settings.FIELD_MAPPINGS
+    allowed_fields = set(settings.ALLOWED_FIELDS)
+    get_question_id = id_generator.generate
 
 except Exception as e:
     logger.critical(f"系统初始化失败: {str(e)}")
-    raise 
+    raise

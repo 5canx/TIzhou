@@ -19,12 +19,12 @@ class User(AbstractUser):
         ('moderator', '审核员'),
         ('user', '普通用户'),
     )
-    
+
     role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='user', verbose_name='用户角色')
     phone = models.CharField(max_length=11, blank=True, null=True, verbose_name='手机号')
     avatar = models.ImageField(upload_to='avatars/', blank=True, null=True, verbose_name='头像')
     is_active = models.BooleanField(default=True, verbose_name='是否激活')
-    
+
     class Meta:
         verbose_name = '用户'
         verbose_name_plural = '用户'
@@ -49,7 +49,7 @@ class QuestionSubmission(BaseModel):
         ('approved', '已通过'),
         ('rejected', '已拒绝'),
     )
-    
+
     submitter = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='提交者')
     title = models.CharField(max_length=200, verbose_name='题目标题')
     content = models.TextField(verbose_name='题目内容')
@@ -59,16 +59,17 @@ class QuestionSubmission(BaseModel):
     explanation = models.TextField(blank=True, null=True, verbose_name='解析')
     options = models.JSONField(default=list, verbose_name='选项')
     source = models.CharField(max_length=100, blank=True, null=True, verbose_name='来源')
-    
+
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending', verbose_name='审核状态')
-    reviewer = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True, related_name='reviewed_questions', verbose_name='审核员')
+    reviewer = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True,
+                                 related_name='reviewed_questions', verbose_name='审核员')
     review_time = models.DateTimeField(blank=True, null=True, verbose_name='审核时间')
     review_comment = models.TextField(blank=True, null=True, verbose_name='审核意见')
-    
+
     # ES相关字段
     es_id = models.CharField(max_length=50, blank=True, null=True, verbose_name='ES文档ID')
     is_indexed = models.BooleanField(default=False, verbose_name='是否已索引')
-    
+
     class Meta:
         verbose_name = '题目提交'
         verbose_name_plural = '题目提交'
@@ -94,8 +95,17 @@ class QuestionSubmission(BaseModel):
         self.save()
 
 
+# 代理模型，只显示待审核题目
+class QuestionSubmissionReview(QuestionSubmission):
+    class Meta:
+        proxy = True
+        verbose_name = '题目审核'
+        verbose_name_plural = '题目审核'
+
+
 class ESQuestionDummy(models.Model):
     """ES题目虚拟模型"""
+
     class Meta:
         verbose_name = "ES 题库"
         verbose_name_plural = "ES 题库"
@@ -109,17 +119,17 @@ class SystemLog(BaseModel):
         ('question', '题目操作'),
         ('system', '系统操作'),
     )
-    
+
     user = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True, verbose_name='操作用户')
     log_type = models.CharField(max_length=20, choices=LOG_TYPES, verbose_name='日志类型')
     action = models.CharField(max_length=100, verbose_name='操作')
     description = models.TextField(verbose_name='描述')
     ip_address = models.GenericIPAddressField(blank=True, null=True, verbose_name='IP地址')
-    
+
     class Meta:
         verbose_name = '系统日志'
         verbose_name_plural = '系统日志'
         ordering = ['-created_at']
 
     def __str__(self):
-        return f"{self.user} - {self.action} - {self.created_at}" 
+        return f"{self.user} - {self.action} - {self.created_at}"

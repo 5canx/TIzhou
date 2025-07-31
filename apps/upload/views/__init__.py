@@ -1,2 +1,2 @@
-from .api import upload_file, upload_images
-from .pages import upload_page, upload_images_page 
+from .api import upload_file_view, upload_images_view
+from .pages import upload_page, upload_images_page
