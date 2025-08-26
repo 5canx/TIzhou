@@ -59,8 +59,8 @@ https://github.com/5canx/TIzhou/blob/main/%E5%9B%BE%E7%89%87.zip
 克隆仓库：
 
 ```bash
-git https://github.com/hack-scan/question_bank.git
-cd question_bank
+git https://github.com/5canx/Tizhou.git
+cd Tizhou
 ```
 
 快速启动:
@@ -106,17 +106,17 @@ djangoProject/
 
 ## **上传题库**
 
-<img src="https://fastly.jsdelivr.net/gh/hack-scan/Blog-pic/posts/202505260952932.gif" alt="May-26-2025 09-52-30" style="zoom:67%;" />
+<img src="https://fastly.jsdelivr.net/gh/5canx/Blog-pic/posts/202505260952932.gif" alt="May-26-2025 09-52-30" style="zoom:67%;" />
 
 ## XLSX文件题目图片上传（压缩包）
 
-![Jun-03-2025 18-37-51](https://fastly.jsdelivr.net/gh/hack-scan/Blog-pic/posts/202506031838104.gif)
+![Jun-03-2025 18-37-51](https://fastly.jsdelivr.net/gh/5canx/Blog-pic/posts/202506031838104.gif)
 
 
 
 ## 题目查询
 
-<img src="https://fastly.jsdelivr.net/gh/hack-scan/Blog-pic/posts/202505261042851.gif" alt="May-26-2025 10-42-41" style="zoom: 67%;" />
+<img src="https://fastly.jsdelivr.net/gh/5canx/Blog-pic/posts/202505261042851.gif" alt="May-26-2025 10-42-41" style="zoom: 67%;" />
 
-<img src="https://fastly.jsdelivr.net/gh/hack-scan/Blog-pic/posts/202506031849890.gif" alt="Jun-03-2025 18-49-00" style="zoom:67%;" />
+<img src="https://fastly.jsdelivr.net/gh/5canx/Blog-pic/posts/202506031849890.gif" alt="Jun-03-2025 18-49-00" style="zoom:67%;" />
 
