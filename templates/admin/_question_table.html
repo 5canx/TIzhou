@@ -3,9 +3,16 @@
 {% endif %}
 
 {% if questions %}
-  <table border="1" cellspacing="0" cellpadding="5" style="width: 100%; border-collapse: collapse;">
+  <div class="question-actions">
+    <button id="select-all-btn" class="btn btn-primary">全选</button>
+    <button id="deselect-all-btn" class="btn">取消选择</button>
+    <button id="delete-selected-btn" class="btn btn-danger">删除所选</button>
+  </div>
+  
+  <table>
     <thead>
       <tr>
+        <th><input type="checkbox" id="header-checkbox"></th>
         <th>题目ID</th>
         <th>内容</th>
         <th>类型</th>
@@ -18,7 +25,8 @@
     </thead>
     <tbody>
       {% for q in questions %}
-        <tr>
+        <tr data-id="{{ q.question_id }}">
+          <td><input type="checkbox" class="row-checkbox" data-id="{{ q.question_id }}"></td>
           <td>{{ q.question_id }}</td>
           <td style="max-width: 400px; word-wrap: break-word;">{{ q.content }}</td>
           <td>{{ q.question_type }}</td>
@@ -31,34 +39,158 @@
       {% endfor %}
     </tbody>
   </table>
+  
+  <script>
+    // 全选/取消全选功能
+    document.getElementById('select-all-btn').addEventListener('click', function() {
+      document.querySelectorAll('.row-checkbox').forEach(checkbox => {
+        checkbox.checked = true;
+        checkbox.closest('tr').classList.add('selected');
+      });
+    });
+    
+    document.getElementById('deselect-all-btn').addEventListener('click', function() {
+      document.querySelectorAll('.row-checkbox').forEach(checkbox => {
+        checkbox.checked = false;
+        checkbox.closest('tr').classList.remove('selected');
+      });
+    });
+    
+    // 表头复选框全选
+    document.getElementById('header-checkbox').addEventListener('change', function() {
+      const isChecked = this.checked;
+      document.querySelectorAll('.row-checkbox').forEach(checkbox => {
+        checkbox.checked = isChecked;
+        if (isChecked) {
+          checkbox.closest('tr').classList.add('selected');
+        } else {
+          checkbox.closest('tr').classList.remove('selected');
+        }
+      });
+    });
+    
+    // 行复选框点击
+    document.querySelectorAll('.row-checkbox').forEach(checkbox => {
+      checkbox.addEventListener('change', function() {
+        if (this.checked) {
+          this.closest('tr').classList.add('selected');
+        } else {
+          this.closest('tr').classList.remove('selected');
+        }
+        // 更新表头复选框状态
+        updateHeaderCheckbox();
+      });
+    });
+    
+    // 更新表头复选框状态
+    function updateHeaderCheckbox() {
+      const checkboxes = document.querySelectorAll('.row-checkbox');
+      const checkedBoxes = document.querySelectorAll('.row-checkbox:checked');
+      document.getElementById('header-checkbox').checked = checkboxes.length > 0 && checkboxes.length === checkedBoxes.length;
+    }
+    
+    // 删除所选功能
+    document.getElementById('delete-selected-btn').addEventListener('click', function() {
+      const selectedIds = Array.from(document.querySelectorAll('.row-checkbox:checked'))
+        .map(checkbox => checkbox.dataset.id);
+        
+      if (selectedIds.length === 0) {
+        alert('请先选择要删除的题目');
+        return;
+      }
+      
+      if (confirm(`确定要删除选中的 ${selectedIds.length} 个题目吗？`)) {
+        $.ajax({
+          url: '/admin/delete-questions/',
+          type: 'POST',
+          data: { 'question_ids': JSON.stringify(selectedIds), 'csrfmiddlewaretoken': '{{ csrf_token }}' },
+          success: function(data) {
+            if (data.success) {
+              alert('删除成功');
+              // 刷新当前页面
+              window.location.reload();
+            } else {
+              alert('删除失败: ' + data.error);
+            }
+          },
+          error: function() {
+            alert('删除失败，请重试');
+          }
+        });
+      }
+    });
+  </script>
 
+  <div class="pagination-info">
+    <span>共 {{ total }} 条数据，每页显示 {{ page_size }} 条</span>
+  </div>
+  
   <div class="pagination" style="margin-top: 20px;">
-    <span>第 {{ page_obj.number }} 页 / 共 {{ paginator.num_pages }} 页 (共 {{ total }} 条数据)</span><br><br>
-
     {% if page_obj.has_previous %}
-      <a href="?page=1">首页</a>
-      <a href="?page={{ page_obj.previous_page_number }}">上一页</a>
+      <a href="?page=1" class="pagination-btn first">首页</a>
+      <a href="?page={{ page_obj.previous_page_number }}" class="pagination-btn prev">上一页</a>
     {% else %}
-      首页
-      上一页
+      <span class="pagination-btn disabled first">首页</span>
+      <span class="pagination-btn disabled prev">上一页</span>
     {% endif %}
 
-    {% for num in paginator.page_range %}
-      {% if num >= page_obj.number|add:'-3' and num <= page_obj.number|add:'3' %}
+    <!-- 显示页码 -->
+    {% if paginator.num_pages <= 10 %}
+      {% for num in paginator.page_range %}
         {% if num == page_obj.number %}
-          <strong style="margin: 0 5px;">{{ num }}</strong>
+          <span class="pagination-btn active">{{ num }}</span>
         {% else %}
-          <a href="?page={{ num }}" style="margin: 0 5px;">{{ num }}</a>
+          <a href="?page={{ num }}" class="pagination-btn">{{ num }}</a>
         {% endif %}
+      {% endfor %}
+    {% else %}
+      {% if page_obj.number <= 5 %}
+        {% for num in paginator.page_range|slice:':7' %}
+          {% if num == page_obj.number %}
+            <span class="pagination-btn active">{{ num }}</span>
+          {% else %}
+            <a href="?page={{ num }}" class="pagination-btn">{{ num }}</a>
+          {% endif %}
+        {% endfor %}
+        <span class="pagination-ellipsis">...</span>
+        <a href="?page={{ paginator.num_pages|add:'-1' }}" class="pagination-btn">{{ paginator.num_pages|add:'-1' }}</a>
+        <a href="?page={{ paginator.num_pages }}" class="pagination-btn">{{ paginator.num_pages }}</a>
+      {% elif page_obj.number >= paginator.num_pages|add:'-4' %}
+        <a href="?page=1" class="pagination-btn">1</a>
+        <a href="?page=2" class="pagination-btn">2</a>
+        <span class="pagination-ellipsis">...</span>
+        {% for num in paginator.page_range|slice:'-7:' %}
+          {% if num == page_obj.number %}
+            <span class="pagination-btn active">{{ num }}</span>
+          {% else %}
+            <a href="?page={{ num }}" class="pagination-btn">{{ num }}</a>
+          {% endif %}
+        {% endfor %}
+      {% else %}
+        <a href="?page=1" class="pagination-btn">1</a>
+        <a href="?page=2" class="pagination-btn">2</a>
+        <span class="pagination-ellipsis">...</span>
+        {% for num in paginator.page_range|slice:':0' %}
+          {% if num >= page_obj.number|add:'-2' and num <= page_obj.number|add:'2' %}
+            {% if num == page_obj.number %}
+              <span class="pagination-btn active">{{ num }}</span>
+            {% else %}
+              <a href="?page={{ num }}" class="pagination-btn">{{ num }}</a>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+        <span class="pagination-ellipsis">...</span>
+        <a href="?page={{ paginator.num_pages|add:'-1' }}" class="pagination-btn">{{ paginator.num_pages|add:'-1' }}</a>
+        <a href="?page={{ paginator.num_pages }}" class="pagination-btn">{{ paginator.num_pages }}</a>
       {% endif %}
-    {% endfor %}
+    {% endif %}
 
     {% if page_obj.has_next %}
-      <a href="?page={{ page_obj.next_page_number }}">下一页</a>
-      <a href="?page={{ paginator.num_pages }}">尾页</a>
+      <a href="?page={{ page_obj.next_page_number }}" class="pagination-btn next">下一页</a>
+      <a href="?page={{ paginator.num_pages }}" class="pagination-btn last">尾页</a>
     {% else %}
-      下一页
-      尾页
+      <span class="pagination-btn disabled next">下一页</span>
+      <span class="pagination-btn disabled last">尾页</span>
     {% endif %}
   </div>
 {% else %}

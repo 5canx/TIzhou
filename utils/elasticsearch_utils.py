@@ -1,6 +1,8 @@
 import logging
 from elasticsearch import Elasticsearch, helpers
 from .database import es, index_name
+import uuid
+import datetime
 
 logger = logging.getLogger(__name__)
 
@@ -72,10 +74,29 @@ class ElasticsearchService:
 
     def bulk_index(self, documents):
         try:
-            actions = [{
-                "_index": self.index_name,
-                "_source": doc
-            } for doc in documents]
+            actions = []
+            for doc in documents:
+                # 自动生成唯一的ES文档ID，如果文档中没有指定
+                # 格式: question_{随机字符串}_{时间戳}
+                if not doc.get('question_id'):
+                    timestamp = int(datetime.datetime.now().timestamp())
+                    random_str = uuid.uuid4().hex[:8]
+                    es_id = f"question_{random_str}_{timestamp}"
+                    doc['question_id'] = es_id
+                else:
+                    # 如果文档中已有question_id，则使用它作为ES文档ID
+                    es_id = doc['question_id']
+                    
+                # 确保ingest_time字段存在
+                if not doc.get('ingest_time'):
+                    doc['ingest_time'] = datetime.datetime.now().isoformat()
+                
+                action = {
+                    "_index": self.index_name,
+                    "_id": es_id,  # 使用生成的ID作为ES文档ID
+                    "_source": doc
+                }
+                actions.append(action)
 
             success, failed = 0, 0
             for ok, result in helpers.streaming_bulk(self.es, actions, chunk_size=100):

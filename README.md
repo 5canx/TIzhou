@@ -1,8 +1,9 @@
-# 基于Django开发的题库系统 1.2
+# 基于Django开发的题库系统 1.3
+# ``！2025年9月8日最后一次更新，非必要即停止维护更新！``
 
 ## 项目概述
 
-本项目是一个集成 Django、Elasticsearch 和 Redis 的 Web 应用，使用 Jazzmin 作为管理后台主题。主要功能包括数据导入、搜索和管理功能。
+本项目是一个集成 Django、Elasticsearch 和 Redis 的 Web 应用，主要功能包括数据导入、搜索和管理功能。
 
 ## 版权与使用限制
 
@@ -26,7 +27,6 @@
 - ✅ 数据导入（支持 JSON 和 Excel 格式）
 - 🔍 Elasticsearch 全文搜索
 - 🏷️ Redis 缓存和唯一 ID 生成
-- 🎨 Jazzmin 现代化管理界面
 - 🔄 自动字段映射和验证
 - 📊 数据批量处理
 
@@ -38,7 +38,6 @@
 | Django        | 4.2    | Web 框架       |
 | Elasticsearch | 8.x    | 搜索和数据存储 |
 | Redis         | 6.x    | 缓存和ID生成   |
-| Jazzmin       | 3.0.1  | 管理后台主题   |
 | Pandas        | latest | Excel 文件处理 |
 
 ## 安装指南
@@ -52,16 +51,16 @@
 
 ### 示例数据
 
-https://github.com/hack-scan/TIzhou/blob/main/%E9%A2%98%E7%9B%AE%E4%B8%8E%E7%AD%94%E6%A1%88.xlsx
+https://github.com/5canx/TIzhou/blob/main/%E9%A2%98%E7%9B%AE%E4%B8%8E%E7%AD%94%E6%A1%88.xlsx
 
-https://github.com/hack-scan/TIzhou/blob/main/%E5%9B%BE%E7%89%87.zip
+https://github.com/5canx/TIzhou/blob/main/%E5%9B%BE%E7%89%87.zip
 
 ### 安装步骤
 
 克隆仓库：
 
 ```bash
-git https://github.com/hack-scan/question_bank.git
+git https://github.com/5canx/question_bank.git
 cd question_bank
 ```
 
@@ -82,6 +81,8 @@ python manage.py runserver
 http://127.0.0.1:8000/upload/
 http://127.0.0.1:8000/upload/images/page/
 http://127.0.0.1:8000/search/
+后台账号：test
+后台密码：admin
 ```
 
 目录结构：
@@ -108,17 +109,17 @@ djangoProject/
 
 ## **上传题库**
 
-<img src="https://fastly.jsdelivr.net/gh/hack-scan/Blog-pic/posts/202505260952932.gif" alt="May-26-2025 09-52-30" style="zoom:67%;" />
+<img src="https://fastly.jsdelivr.net/gh/5canx/Blog-pic/posts/202505260952932.gif" alt="May-26-2025 09-52-30" style="zoom:67%;" />
 
 ## XLSX文件题目图片上传（压缩包）
 
-![Jun-03-2025 18-37-51](https://fastly.jsdelivr.net/gh/hack-scan/Blog-pic/posts/202506031838104.gif)
+![Jun-03-2025 18-37-51](https://fastly.jsdelivr.net/gh/5canx/Blog-pic/posts/202506031838104.gif)
 
 
 
 ## 题目查询
 
-<img src="https://fastly.jsdelivr.net/gh/hack-scan/Blog-pic/posts/202505261042851.gif" alt="May-26-2025 10-42-41" style="zoom: 67%;" />
+<img src="https://fastly.jsdelivr.net/gh/5canx/Blog-pic/posts/202505261042851.gif" alt="May-26-2025 10-42-41" style="zoom: 67%;" />
 
-<img src="https://fastly.jsdelivr.net/gh/hack-scan/Blog-pic/posts/202506031849890.gif" alt="Jun-03-2025 18-49-00" style="zoom:67%;" />
+<img src="https://fastly.jsdelivr.net/gh/5canx/Blog-pic/posts/202506031849890.gif" alt="Jun-03-2025 18-49-00" style="zoom:67%;" />
 

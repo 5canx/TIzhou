@@ -200,6 +200,11 @@ LOGGING = {
             'level': 'INFO',
             'propagate': False,
         },
+        'user': {
+            'handlers': ['console', 'file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
     },
 }
 
@@ -216,4 +221,4 @@ CACHES = {
             'PASSWORD': REDIS_CONFIG['PASSWORD'],
         }
     }
-} 
+}

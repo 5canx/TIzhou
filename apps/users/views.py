@@ -1,6 +1,7 @@
 """
 用户相关视图
 """
+import logging
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
@@ -10,6 +11,9 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import user_passes_test
 from .forms import UserRegistrationForm, UserLoginForm, UserProfileForm, PasswordChangeForm
 from apps.core.models import User, SystemLog
+
+# 创建用户日志记录器
+user_logger = logging.getLogger('user')
 
 
 def is_admin(user):
@@ -49,21 +53,38 @@ def register(request):
 
 def user_login(request):
     """用户登录"""
+    # 添加详细的日志记录
+    user_logger.info(f'登录请求到达: 方法={request.method}, 路径={request.path}, 用户={request.user if request.user.is_authenticated else "未认证"}')
+    
     if request.user.is_authenticated:
+        user_logger.info(f'用户已认证，重定向到home')
         return redirect('home')
     
     if request.method == 'POST':
+        user_logger.info(f'收到POST登录请求，表单数据: {request.POST}')
         form = UserLoginForm(request, data=request.POST)
+        
+        # 记录表单验证状态
+        user_logger.info(f'表单验证结果: {form.is_valid()}')
+        
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
+            
+            user_logger.info(f'表单验证通过，尝试认证用户: {username}')
+            
+            # 尝试使用用户名登录
             user = authenticate(username=username, password=password)
+            user_logger.info(f'用户名认证结果: {user}')
+            
+            # 如果用户名登录失败，尝试使用邮箱登录
             if user is None:
-                # 尝试用邮箱登录
                 try:
                     user_obj = User.objects.get(email=username)
                     user = authenticate(username=user_obj.username, password=password)
+                    user_logger.info(f'邮箱认证结果: {user}')
                 except User.DoesNotExist:
+                    user_logger.info(f'邮箱 {username} 不存在')
                     pass
             
             if user is not None:
@@ -79,12 +100,48 @@ def user_login(request):
                     ip_address=request.META.get('REMOTE_ADDR')
                 )
                 
-                next_url = request.GET.get('next', 'home')
+                user_logger.info(f'用户 {username} 登录成功', extra={'user_id': user.id})
+                
+                # 获取next参数或默认值
+                next_url = request.GET.get('next', '')
+                user_logger.info(f'登录成功，next_url: {next_url}')
+                
+                # 修复重定向循环问题
+                if not next_url or next_url == '/':
+                    # 如果next_url为空或指向首页，根据用户角色决定重定向位置
+                    if user.is_admin:
+                        user_logger.info(f'管理员用户重定向到admin:index')
+                        return redirect('admin:index')
+                    else:
+                        user_logger.info(f'普通用户重定向到home')
+                        return redirect('home')
+                
+                # 确保管理员用户可以正确重定向到管理后台
+                if '/admin/' in next_url and user.is_admin:
+                    user_logger.info(f'管理员用户重定向到next_url: {next_url}')
+                    return redirect(next_url)
+                elif '/admin/' in next_url and not user.is_admin:
+                    # 非管理员用户尝试访问管理后台，重定向到首页
+                    messages.error(request, '您没有权限访问管理后台')
+                    user_logger.warning(f'非管理员用户尝试访问管理后台，重定向到home')
+                    return redirect('home')
+                
+                user_logger.info(f'重定向到next_url: {next_url}')
                 return redirect(next_url)
+            else:
+                # 登录失败
+                user_logger.warning(f'用户 {username} 登录失败', extra={'ip_address': request.META.get('REMOTE_ADDR')})
+                messages.error(request, '账号或密码错误，请重试')
     else:
         form = UserLoginForm()
+        user_logger.info(f'GET请求，显示登录页面')
     
-    return render(request, 'users/login.html', {'form': form})
+    # 如果是GET请求或表单验证失败，显示登录页面
+    context = {
+        'form': form
+    }
+    user_logger.info(f'渲染登录页面，next参数: {request.GET.get("next", "")}')
+    return render(request, 'users/login.html', context)
 
 
 @login_required
@@ -244,4 +301,4 @@ def api_login(request):
                 'error': '用户名或密码错误'
             })
     
-    return JsonResponse({'error': '仅支持POST请求'}, status=405) 
+    return JsonResponse({'error': '仅支持POST请求'}, status=405)

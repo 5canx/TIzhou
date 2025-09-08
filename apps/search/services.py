@@ -59,7 +59,10 @@ class SearchService:
 
             results = []
             for hit in hits:
-                source = hit["_source"]
+                source = hit["_source"].copy()
+                # 添加相关性评分，供调用者参考
+                source["_score"] = hit.get("_score", 0)
+
                 if "answer" in source and source["answer"] is not None:
                     source["answer"] = str(source["answer"])
 
@@ -70,11 +73,27 @@ class SearchService:
                 results.append(source)
 
             return {
-                "results": results, 
+                "results": results,
                 "total": result.get("total", {}).get("value", 0)
             }
         except Exception as e:
             logger.error(f"根据内容搜索失败: {str(e)}")
+            raise
+
+    def get_most_likely_question(self, keyword):
+        """
+        根据搜索内容返回可能性最大的题目
+        """
+        try:
+            # 只搜索最匹配的1个结果
+            search_result = self.search_by_content(keyword, size=1)
+            results = search_result.get("results", [])
+
+            if results:
+                return results[0]
+            return None  # 如果没有找到匹配的题目，返回None
+        except Exception as e:
+            logger.error(f"获取最可能的题目失败: {str(e)}")
             raise
 
     def list_all_questions(self, size=100, from_=0):
@@ -82,7 +101,7 @@ class SearchService:
         try:
             result = self.es_service.list_all(size, from_)
             hits = result.get("hits", [])
-            
+
             results = []
             for hit in hits:
                 source = hit["_source"]
@@ -101,4 +120,4 @@ class SearchService:
             }
         except Exception as e:
             logger.error(f"列出所有题目失败: {str(e)}")
-            raise 
+            raise

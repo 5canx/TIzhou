@@ -1,16 +1,20 @@
 {% extends 'base.html' %}
 
-{% block title %}用户注册 - 题库管理系统{% endblock %}
+{% block title %}题舟 - 注册{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/static/css/login.css">
+{% endblock %}
+
+{% block body_class %}login-page{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="text-center">用户注册</h4>
-                </div>
-                <div class="card-body">
+<div class="login-container">
+    <div class="login-card">
+        <div class="login-header">
+            <h1 class="login-title">题舟 - 注册</h1>
+            <p class="login-subtitle">创建账号，开始使用题舟服务</p>
+        </div>
                     {% if messages %}
                         {% for message in messages %}
                             <div class="alert alert-{{ message.tags }}">
@@ -19,71 +23,55 @@
                         {% endfor %}
                     {% endif %}
                     
-                    <form method="post">
+                    <form method="post" class="login-form">
                         {% csrf_token %}
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="{{ form.username.id_for_label }}" class="form-label">用户名</label>
-                                    {{ form.username }}
-                                    {% if form.username.errors %}
-                                        <div class="text-danger">
-                                            {{ form.username.errors }}
-                                        </div>
-                                    {% endif %}
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="{{ form.email.id_for_label }}" class="form-label">邮箱</label>
-                                    {{ form.email }}
-                                    {% if form.email.errors %}
-                                        <div class="text-danger">
-                                            {{ form.email.errors }}
-                                        </div>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </div>
                         
-                        <div class="mb-3">
-                            <label for="{{ form.phone.id_for_label }}" class="form-label">手机号（可选）</label>
-                            {{ form.phone }}
-                            {% if form.phone.errors %}
+                        <div class="form-group">
+                            <div class="input-with-icon">
+                                <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                                <input type="text" name="username" class="form-input" placeholder="输入用户名" required>
+                            </div>
+                            {% if form.username.errors %}
                                 <div class="text-danger">
-                                    {{ form.phone.errors }}
+                                    {{ form.username.errors }}
                                 </div>
                             {% endif %}
                         </div>
                         
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="{{ form.password1.id_for_label }}" class="form-label">密码</label>
-                                    {{ form.password1 }}
-                                    {% if form.password1.errors %}
-                                        <div class="text-danger">
-                                            {{ form.password1.errors }}
-                                        </div>
-                                    {% endif %}
-                                    {% if form.password1.help_text %}
-                                        <div class="form-text">
-                                            {{ form.password1.help_text }}
-                                        </div>
-                                    {% endif %}
-                                </div>
+                        <div class="form-group">
+                            <div class="input-with-icon">
+                                <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                <input type="email" name="email" class="form-input" placeholder="输入邮箱" required>
                             </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="{{ form.password2.id_for_label }}" class="form-label">确认密码</label>
-                                    {{ form.password2 }}
-                                    {% if form.password2.errors %}
-                                        <div class="text-danger">
-                                            {{ form.password2.errors }}
-                                        </div>
-                                    {% endif %}
+                            {% if form.email.errors %}
+                                <div class="text-danger">
+                                    {{ form.email.errors }}
                                 </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="input-with-icon">
+                                <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                                <input type="password" name="password1" class="form-input" placeholder="输入密码" required>
                             </div>
+                            {% if form.password1.errors %}
+                                <div class="text-danger">
+                                    {{ form.password1.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="input-with-icon">
+                                <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                                <input type="password" name="password2" class="form-input" placeholder="确认密码" required>
+                            </div>
+                            {% if form.password2.errors %}
+                                <div class="text-danger">
+                                    {{ form.password2.errors }}
+                                </div>
+                            {% endif %}
                         </div>
                         
                         {% if form.non_field_errors %}
@@ -92,17 +80,14 @@
                             </div>
                         {% endif %}
                         
-                        <div class="d-grid">
-                            <button type="submit" class="btn btn-primary">注册</button>
-                        </div>
+                        <button type="submit" class="login-btn">注册</button>
                     </form>
                     
-                    <div class="text-center mt-3">
-                        <p>已有账号？ <a href="{% url 'users:login' %}">立即登录</a></p>
+                    <div class="login-footer">
+                        <a href="/" class="footer-link">← 返回首页</a>
+                        <a href="{% url 'users:login' %}" class="footer-link">已有账号，去登录 →</a>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-{% endblock %} 
+{% endblock %}

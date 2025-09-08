@@ -1,0 +1,83 @@
+{% extends "admin/index.html" %}
+{% load static %}
+
+{% block extrastyle %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/admin_custom.css' %}" />
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h1>题舟 - 管理后台</h1>
+        <p>欢迎使用题舟管理后台</p>
+    </div>
+    
+    <div class="dashboard-stats">
+        <div class="stat-card">
+            <div class="stat-icon">👥</div>
+            <div class="stat-content">
+                <div class="stat-number">{{ total_users }}</div>
+                <div class="stat-label">用户总数</div>
+            </div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-icon">📝</div>
+            <div class="stat-content">
+                <div class="stat-number">{{ total_submissions }}</div>
+                <div class="stat-label">题目总数</div>
+            </div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-icon">⏳</div>
+            <div class="stat-content">
+                <div class="stat-number">{{ pending_submissions }}</div>
+                <div class="stat-label">待审核</div>
+            </div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-icon">✅</div>
+            <div class="stat-content">
+                <div class="stat-number">{{ approved_submissions }}</div>
+                <div class="stat-label">已审核</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="dashboard-recent">
+        <h2>最近活动</h2>
+        <div class="activity-list">
+            {% for log in recent_logs %}
+            <div class="activity-item">
+                <div class="activity-time">{{ log.created_at|date:"Y-m-d H:i" }}</div>
+                <div class="activity-action">{{ log.action }}</div>
+                <div class="activity-user">由 {{ log.user.username }} 操作</div>
+            </div>
+            {% empty %}
+            <div class="activity-empty">暂无最近活动记录</div>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <div class="dashboard-app-list">
+        <h2>快速访问</h2>
+        <div class="app-cards">
+            {% for app in app_list %}
+            <div class="app-card">
+                <h3>{{ app.name }}</h3>
+                <div class="app-models">
+                    {% for model in app.models %}
+                    <a href="{{ model.admin_url }}" class="model-link">
+                        {{ model.name }}
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

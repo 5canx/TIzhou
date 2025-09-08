@@ -3,31 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}题库管理系统{% endblock %}</title>
+    <title>{% block title %}题舟{% endblock %}</title>
     <link rel="stylesheet" href="/static/css/style.css">
     {% block extra_css %}{% endblock %}
 </head>
-<body>
-    <nav class="navbar">
-        <div class="container">
-            <a href="/" class="navbar-brand">题库管理系统</a>
-            <ul class="navbar-nav">
-                <li><a href="/upload/">上传题目</a></li>
-                <li><a href="/search/">搜索题目</a></li>
-                <li><a href="/admin/">管理后台</a></li>
-            </ul>
-        </div>
-    </nav>
-    
-    <main class="container">
+<body class="{% block body_class %}{% endblock %}">
+    <main>
         {% block content %}{% endblock %}
     </main>
-    
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2025 题库管理系统</p>
-        </div>
-    </footer>
     
     <script src="/static/js/main.js"></script>
     {% block extra_js %}{% endblock %}

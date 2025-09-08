@@ -1,0 +1,379 @@
+/* 登录页面专用样式 */
+
+/* 言溪题库网站风格的颜色变量 */
+:root {
+    --primary-color: #165DFF;
+    --primary-dark: #1451DB;
+    --secondary-color: #ffffff;
+    --accent-color: #165DFF;
+    --text-color: #333333;
+    --text-secondary: #666666;
+    --border-radius: 4px;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    --input-bg: #ffffff;
+    --card-bg: #ffffff;
+    --border-color: #e0e0e0;
+    --tip-bg: #fffbe6;
+    --tip-border: #ffeaa7;
+    --tip-text: #d68910;
+}
+
+/* 全局样式重置 */
+body {
+    background-color: var(--secondary-color) !important;
+    color: var(--text-color);
+    font-family: 'Microsoft YaHei', 'SimHei', '黑体', sans-serif !important;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 确保登录页面背景为白色，最高优先级 */
+:root {
+    --login-bg-color: #ffffff;
+    --login-text-color: #333333;
+    --login-border-color: #e0e0e0;
+    --login-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* 确保登录页面背景为白色，优先级最高 */
+html body.login-page {
+    background-color: var(--login-bg-color) !important;
+    background-image: none !important;
+    color: var(--login-text-color) !important;
+}
+
+/* 确保Django admin登录页面背景为白色 */
+html body.login {
+    background-color: var(--login-bg-color) !important;
+    background-image: none !important;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    color: var(--login-text-color) !important;
+}
+
+/* 高优先级 - 确保所有元素背景为白色 */
+html body.login-page *,
+html body.login * {
+    background-color: transparent !important;
+}
+
+/* 仅登录卡片背景为白色 */
+html body.login-page .login-card,
+html body.login .login-card {
+    background-color: var(--login-bg-color) !important;
+    border: 1px solid var(--login-border-color) !important;
+    box-shadow: var(--login-shadow) !important;
+}
+
+/* 确保登录容器背景为白色 */
+.login-container {
+    background-color: var(--secondary-color) !important;
+    background-image: none !important;
+}
+
+/* 确保内容区域背景为白色 */
+#content-main {
+    background-color: var(--secondary-color) !important;
+}
+
+/* 覆盖Django admin默认样式 */
+.login #container {
+    background-color: var(--secondary-color) !important;
+    border: none !important;
+}
+
+.login .form-row {
+    background-color: var(--secondary-color) !important;
+}
+
+/* 确保整个页面背景都是白色 */
+body,
+.login-container,
+.login-card,
+.login-form,
+.form-group {
+    background-color: transparent !important;
+}
+
+/* 登录页面容器 */
+.login-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    background-color: var(--secondary-color) !important;
+    position: relative;
+    overflow: hidden;
+    padding: 20px;
+    padding-top: 40px;
+}
+
+/* 登录表单卡片 */
+.login-card {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 30px;
+    width: 100%;
+    max-width: 400px;
+    z-index: 10;
+    position: relative;
+    border: 1px solid var(--border-color);
+}
+
+/* 登录标题 */
+.login-title {
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+/* 登录副标题 */
+.login-subtitle {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+/* 表单样式 */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* 表单组样式 */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* 表单标签 */
+.form-label {
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* 输入框样式 */
+.form-input {
+    background-color: var(--input-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    color: var(--text-color);
+    font-size: 14px;
+    padding: 12px 16px;
+    outline: none;
+    transition: none;
+    font-family: 'Microsoft YaHei', 'SimHei', '黑体', sans-serif !important;
+}
+
+/* 输入框焦点样式 */
+.form-input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(22, 93, 255, 0.2);
+}
+
+/* 登录按钮样式 */
+.login-btn {
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: var(--border-radius);
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 12px;
+    cursor: pointer;
+    transition: none;
+    font-family: 'Microsoft YaHei', 'SimHei', '黑体', sans-serif !important;
+    width: 100%;
+}
+
+/* 按钮hover效果 */
+.login-btn:hover {
+    background-color: var(--primary-dark);
+}
+
+/* 获取验证码按钮 */
+.get-code-btn {
+    background-color: transparent;
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    border-radius: var(--border-radius);
+    padding: 0 16px;
+    font-size: 14px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+/* 验证码输入组 */
+.verification-group {
+    align-items: center;
+}
+
+/* 验证码图片 */
+.captcha-image {
+    margin-left: 10px;
+}
+
+.captcha-img {
+    width: 120px;
+    height: 40px;
+    border-radius: var(--border-radius);
+}
+
+/* 输入框图标 */
+.input-with-icon {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.input-icon {
+    position: absolute;
+    left: 12px;
+    color: var(--text-secondary);
+    pointer-events: none;
+}
+
+.input-with-icon input {
+    padding-left: 40px;
+}
+
+/* 注册链接已移除，在footer中显示 */
+
+/* 错误信息样式 */
+.alert {
+    padding: 12px;
+    border-radius: var(--border-radius);
+    margin-bottom: 16px;
+    font-size: 14px;
+    font-family: 'Microsoft YaHei', 'SimHei', '黑体', sans-serif !important;
+}
+
+.alert-danger {
+    background-color: #fee2e2;
+    border: 1px solid #fecaca;
+    color: #ef4444;
+}
+
+/* 分割线 */
+.divider {
+    display: flex;
+    align-items: center;
+    margin: 24px 0;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background-color: var(--border-color);
+}
+
+.divider-text {
+    padding: 0 16px;
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-family: 'Microsoft YaHei', 'SimHei', '黑体', sans-serif !important;
+}
+
+/* 第三方登录按钮 */
+.oauth-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.oauth-btn {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: none;
+    color: var(--text-color);
+    font-size: 14px;
+    width: 100%;
+}
+
+.oauth-btn svg {
+    margin-right: 8px;
+}
+
+.qq-login {
+    border-color: #12B7F5;
+    color: #12B7F5;
+}
+
+.afdian-login {
+    border-color: #9C27B0;
+    color: #9C27B0;
+}
+
+/* 验证码登录切换 */
+.auth-tabs {
+    display: flex;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.auth-tab {
+    flex: 1;
+    padding: 12px;
+    text-align: center;
+    cursor: pointer;
+    color: var(--text-secondary);
+    border-bottom: 2px solid transparent;
+    transition: none;
+    font-family: 'Microsoft YaHei', 'SimHei', '黑体', sans-serif !important;
+}
+
+.auth-tab.active {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+}
+
+/* 账号提示 */
+.account-tip {
+    background-color: var(--tip-bg);
+    border: 1px solid var(--tip-border);
+    border-radius: var(--border-radius);
+    padding: 8px 12px;
+    margin: 16px 0;
+}
+
+.account-tip p {
+    margin: 0;
+    color: var(--tip-text);
+    font-size: 14px;
+    text-align: center;
+}
+
+/* 页脚样式 */
+.login-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.footer-link {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: 14px;
+    font-family: 'Microsoft YaHei', 'SimHei', '黑体', sans-serif !important;
+}

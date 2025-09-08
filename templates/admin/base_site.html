@@ -1,0 +1,81 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block extrahead %}
+    {{ block.super }}
+    {% if extra_css %}
+        {% for css in extra_css %}
+            <link rel="stylesheet" type="text/css" href="{% static css %}" />
+        {% endfor %}
+    {% endif %}
+    
+    <!-- 添加页面类型标识，便于JavaScript区分页面类型 -->
+    <meta name="page-type" content="{% if request.path == '/admin/login/' or request.path == '/admin/logout/' %}login{% else %}admin{% endif %}" />
+    
+    <!-- 加载护眼模式脚本 -->
+    {% if request.path != '/admin/login/' and request.path != '/admin/logout/' %}
+        <script src="{% static 'js/admin_theme.js' %}"></script>
+    {% endif %}
+{% endblock %}
+
+{% block extrastyle %}
+    {{ block.super }}
+    
+    <!-- 根据页面路径明确区分样式 -->
+    {% if request.path == '/admin/login/' or request.path == '/admin/logout/' %}
+        <!-- 登录/注销页面使用白色主题 -->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}" />
+        
+        <!-- 确保登录页面的唯一性样式 -->
+        <style type="text/css">
+            /* 强制登录页面使用独立的样式作用域 */
+            body.login-page, body.login {
+                background-color: #ffffff !important;
+                color: #333333 !important;
+            }
+            
+            /* 隐藏管理后台特有的元素 */
+            #header {
+                display: none;
+            }
+        </style>
+    {% else %}
+        <!-- 管理后台页面使用深蓝色主题 -->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/admin_custom.css' %}" />
+        
+        <!-- 确保管理后台的唯一性样式 -->
+        <style type="text/css">
+            /* 强制管理后台使用独立的样式作用域 */
+            body {
+                background-color: #081022 !important;
+                color: #ffffff !important;
+            }
+            
+            /* 增强管理后台导航栏样式 */
+            #header {
+                background-color: #0c2044 !important;
+                border-bottom: 2px solid #1e3a66;
+            }
+        </style>
+    {% endif %}
+{% endblock %}
+
+{% block branding %}
+    {% if request.path == '/admin/login/' or request.path == '/admin/logout/' %}
+        <!-- 登录页面的标题 -->
+        <div id="site-name" style="text-align: center;"><a href="{% url 'admin:index' %}">题舟 - 管理后台</a></div>
+    {% else %}
+        <!-- 管理后台的标题 -->
+        <div id="site-name"><a href="{% url 'admin:index' %}">{{ site_header|default:_('Django administration') }}</a></div>
+        {% if user.is_anonymous %}
+          {% include "admin/color_theme_toggle.html" %}
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+{% block nav-global %}
+    <!-- 管理后台导航内容，登录页面不显示 -->
+    {% if request.path != '/admin/login/' and request.path != '/admin/logout/' %}
+        <!-- 这里可以添加管理后台特有的导航内容 -->
+    {% endif %}
+{% endblock %}
